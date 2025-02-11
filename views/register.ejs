@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="/">Home</a>
+            <a href="/blog/archive">Archive</a>
+        </div>
+        <div class="navbar-right">
+            <% if (user) { %>
+                <a href="/register" onclick="logout(event)">Logout</a>
+            <% } else { %>
+                <a class="active" href="/register">Register</a>
+                <a href="/login">Login</a>
+            <% } %>
+        </div>
+    </nav>
+
+
+    <% if (!user) { %>
+    <h1 class="centered">Register a new account</h1>
+    <form id="registrationForm" onsubmit="register(event)">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email">
+
+        <br><br>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required placeholder="Choose a username">
+
+        <br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required placeholder="Create a password">
+
+        <br><br>
+
+        <button type="submit">Register</button>
+    </form>
+
+    <p id="infoMessage" class="centered"></p>
+    <% } else { %>
+        <h1 class="centered">You're already logged in, please log out to registe</h1>
+        <a href="/register" class="href centered" onclick="logout()">Log out</a>
+    <% } %>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

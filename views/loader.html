@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        async function loadPage() {
+            const path = window.location.href;
+            const contentDiv = document.getElementById("content");
+
+            const jwtToken = localStorage.getItem("jwt");
+            try {
+                const response = await fetch(path, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${jwtToken}`
+                    },
+                });
+                const html = await response.text();
+
+                // load the body of the requested page inside the content div
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, "text/html");
+
+                document.title = doc.title;
+                contentDiv.innerHTML = doc.body.innerHTML;
+            } catch (error) {
+                console.error(error);
+                contentDiv.innerHTML = "<p class='centered'>An unexpected error occured. Reload the page to try again.</p>"
+            }
+        }
+    </script>
+</head>
+<body onload="loadPage()">
+    <div id="content">
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
