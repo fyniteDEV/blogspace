@@ -26,6 +26,9 @@ router.get("/archive",
 
 router.get("/:slug", async (req, res, next) => {
     const foundPost = await postModel.getPostBySlug(req.params.slug);
+    if (!foundPost) {
+        return res.redirect("/404");
+    }
 
     res.locals.title = foundPost.title;
     res.locals.body = foundPost.body;
