@@ -18,7 +18,6 @@ const getPostBySlug = async (slug) => {
     }
 }
 
-// TODO: whatafak???
 const getLatestPosts = async (limit = "9223372036854775807", offset = 0) => {
     const query = `
         SELECT title, slug, overview, created_at
